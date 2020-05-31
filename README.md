@@ -29,7 +29,7 @@ https://github.com/settings/applications/new
 ### To Do
 
 - [x] User authentication
-- [ ] Dashboard
-- [ ] Profile Display
-- [ ] Post comments
+- [x] Dashboard
+- [x] Profile Display
+- [] Post comments
 - [ ] Deploy
