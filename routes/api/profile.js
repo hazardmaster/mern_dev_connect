@@ -7,6 +7,9 @@ const { check, validationResult } = require('express-validator');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/user');
+const Post = require('../../models/Post');
+
+var ObjectID = require('mongodb').ObjectID;
 
 //@route   GET api/profile/me
 //@desc    Get current users profile
@@ -120,7 +123,7 @@ router.post(
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const profiles = await Profile.find().populate('User', ['name', 'avatar']);
+    const profiles = await Profile.find().populate('user', ['name', 'avatar']);
     res.json(profiles);
   } catch (err) {
     console.error(err.message);
@@ -134,16 +137,10 @@ router.get('/', async (req, res) => {
 router.get('/user/:user_id', async (req, res) => {
   try {
     const profile = await Profile.findOne({
-      user: req.params.user_id,
-    }).populate('User', ['name', 'avatar']);
-
-    if (!profile) return res.status(400).json({ msg: 'Profile not found' });
-
+      _id: new ObjectID(req.params.user_id),
+    }).populate('user', ['name', 'avatar']);
     res.json(profile);
   } catch (err) {
-    if (err.kind == 'ObjectId') {
-      return res.status(400).json({ msg: 'Profile not found' });
-    }
     console.error(err.message);
     res.status(500).send('Server error');
   }
@@ -154,11 +151,15 @@ router.get('/user/:user_id', async (req, res) => {
 // @access  Private
 router.delete('/', auth, async (req, res) => {
   try {
+    //Remove post
+    await Post.findMany({ user: req.user.id });
+
     //Remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
 
     //Remove user
     await User.findOneAndRemove({ _id: req.user.id });
+
     res.json({ msg: 'User removed' });
   } catch (err) {
     console.error(err.message);

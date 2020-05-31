@@ -1,6 +1,6 @@
 {
-  "mongoURI": "mongodb+srv://[username]:[password]@cluster1-5inlf.mongodb.net/test?retryWrites=true&w=majority",
+  "mongoURI": "mongodb+srv://hazard:hazard@cluster1-5inlf.mongodb.net/test?retryWrites=true&w=majority",
   "jwtSecret": "Mytoken",
-  "githubClientId": "githubClientId",
-  "githubSecret": "githubSecret"
+  "githubClientId": "5357892ab01c30e6c948",
+  "githubSecret": "c5749ce18ba2bc7b852e59e8fa29282d3dd3d6ee"
 }
