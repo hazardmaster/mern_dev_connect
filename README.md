@@ -31,5 +31,5 @@ https://github.com/settings/applications/new
 - [x] User authentication
 - [x] Dashboard
 - [x] Profile Display
-- [ ] Post Comments
+- [x] Post Comments
 - [ ] Deploy
